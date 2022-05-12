@@ -23,7 +23,7 @@ class GildedRoseKata
      * @var string
      */
     public static $CONJURED = "Conjured";
-    
+
     /**
      * @var array
      */
@@ -39,50 +39,53 @@ class GildedRoseKata
 
     public function updateQuality()
     {
-        for ($i = 0; $i < count($this->items); $i++) {
-            if ($this->items[$i]->name != self::$AGED_BRIE && $this->items[$i]->name != self::$BACKSTAGE_PASSES) {
-                if ($this->items[$i]->quality > 0) {
-                    if ($this->items[$i]->name != self::$SULFURAS) {
-                        $this->items[$i]->quality = $this->items[$i]->quality - 1;
+        foreach ($this->items as $item) {
+            if ($item->name != self::$AGED_BRIE and $item->name != self::$BACKSTAGE_PASSES) {
+                if ($item->quality > 0) {
+                    if ($item->name != self::$SULFURAS) {
+                        $item->quality = $item->quality - 1;
                     }
                 }
             } else {
-                if ($this->items[$i]->quality < 50) {
-                    $this->items[$i]->quality = $this->items[$i]->quality + 1;
-                    if ($this->items[$i]->name == self::$BACKSTAGE_PASSES) {
-                        if ($this->items[$i]->sell_in < 11) {
-                            if ($this->items[$i]->quality < 50) {
-                                $this->items[$i]->quality = $this->items[$i]->quality + 1;
+                if ($item->quality < 50) {
+                    $item->quality = $item->quality + 1;
+                    if ($item->name == self::$BACKSTAGE_PASSES) {
+                        if ($item->sell_in < 11) {
+                            if ($item->quality < 50) {
+                                $item->quality = $item->quality + 1;
                             }
                         }
-                        if ($this->items[$i]->sell_in < 6) {
-                            if ($this->items[$i]->quality < 50) {
-                                $this->items[$i]->quality = $this->items[$i]->quality + 1;
+                        if ($item->sell_in < 6) {
+                            if ($item->quality < 50) {
+                                $item->quality = $item->quality + 1;
                             }
                         }
                     }
                 }
             }
-            if ($this->items[$i]->name != self::$SULFURAS) {
-                $this->items[$i]->sell_in = $this->items[$i]->sell_in - 1;
+
+            if ($item->name != self::$SULFURAS) {
+                $item->sell_in = $item->sell_in - 1;
             }
-            if ($this->items[$i]->sell_in < 0) {
-                if ($this->items[$i]->name != self::$AGED_BRIE) {
-                    if ($this->items[$i]->name != self::$BACKSTAGE_PASSES) {
-                        if ($this->items[$i]->quality > 0) {
-                            if ($this->items[$i]->name != self::$SULFURAS) {
-                                $this->items[$i]->quality = $this->items[$i]->quality - 1;
+
+            if ($item->sell_in < 0) {
+                if ($item->name != self::$AGED_BRIE) {
+                    if ($item->name != self::$BACKSTAGE_PASSES) {
+                        if ($item->quality > 0) {
+                            if ($item->name != self::$SULFURAS) {
+                                $item->quality = $item->quality - 1;
                             }
                         }
                     } else {
-                        $this->items[$i]->quality = $this->items[$i]->quality - $this->items[$i]->quality;
+                        $item->quality = $item->quality - $item->quality;
                     }
                 } else {
-                    if ($this->items[$i]->quality < 50) {
-                        $this->items[$i]->quality = $this->items[$i]->quality + 1;
+                    if ($item->quality < 50) {
+                        $item->quality = $item->quality + 1;
                     }
                 }
             }
         }
     }
+
 }
