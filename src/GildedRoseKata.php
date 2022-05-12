@@ -47,24 +47,18 @@ class GildedRoseKata
     public function updateItemQuality($item)
     {
         if ($item->name != self::$AGED_BRIE and $item->name != self::$BACKSTAGE_PASSES) {
-            if ($item->quality > 0) {
-                if ($item->name != self::$SULFURAS) {
-                    $item->quality--;
-                }
+            if ($item->name != self::$SULFURAS) {
+                $this->decrementQuality($item);
             }
         } else {
             if ($item->quality < 50) {
                 $item->quality++;
                 if ($item->name == self::$BACKSTAGE_PASSES) {
                     if ($item->sell_in < 11) {
-                        if ($item->quality < 50) {
-                            $item->quality++;
-                        }
+                        $this->incrementQuality($item);
                     }
                     if ($item->sell_in < 6) {
-                        if ($item->quality < 50) {
-                            $item->quality++;
-                        }
+                        $this->incrementQuality($item);
                     }
                 }
             }
@@ -77,19 +71,31 @@ class GildedRoseKata
         if ($item->sell_in < 0) {
             if ($item->name != self::$AGED_BRIE) {
                 if ($item->name != self::$BACKSTAGE_PASSES) {
-                    if ($item->quality > 0) {
-                        if ($item->name != self::$SULFURAS) {
-                            $item->quality --;
-                        }
+
+                    if ($item->name != self::$SULFURAS) {
+                        $this->decrementQuality($item);
                     }
+
                 } else {
                     $item->quality = 0;
                 }
             } else {
-                if ($item->quality < 50) {
-                    $item->quality++;
-                }
+                $this->incrementQuality($item);
             }
+        }
+    }
+
+    public function incrementQuality(Item $item)
+    {
+        if ($item->quality < 50) {
+            $item->quality++;
+        }
+    }
+
+    public function decrementQuality(Item $item)
+    {
+        if ($item->quality > 0) {
+            $item->quality--;
         }
     }
 
