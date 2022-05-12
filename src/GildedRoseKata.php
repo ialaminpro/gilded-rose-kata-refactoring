@@ -1,5 +1,14 @@
 <?php
 
+/**------------------------------------------------------------------------
+ * @Title          :  Gilded Rose Kata Refactoring
+ * @author         :  Al Amin
+ * @email          :  ialamin.pro@gmail.com
+ * @repo           :  https://github.com/ialaminpro/gilded-rose-kata-refactoring
+ * @createdOn      :  12/05/2022
+ * @description    :  Gilded Rose Kata Refactoring
+ *------------------------------------------------------------------------**/
+
 namespace GildedRoseKata;
 
 class GildedRoseKata
@@ -37,6 +46,9 @@ class GildedRoseKata
         $this->items = $items;
     }
 
+    /**
+     * @return void
+     */
     public function updateQuality()
     {
         foreach ($this->items as $item) {
@@ -44,6 +56,10 @@ class GildedRoseKata
         }
     }
 
+    /**
+     * @param $item
+     * @return void
+     */
     public function updateItemQuality($item)
     {
         if ($item->name == self::$SULFURAS) {
@@ -62,6 +78,12 @@ class GildedRoseKata
         }
     }
 
+    /**
+     * @param Item $item
+     * @param $updateQuality
+     * @param $updateExpired
+     * @return void
+     */
     public function updateItem(Item $item, $updateQuality, $updateExpired)
     {
         $this->$updateQuality($item);
@@ -71,6 +93,10 @@ class GildedRoseKata
         }
     }
 
+    /**
+     * @param Item $item
+     * @return void
+     */
     public function incrementQuality(Item $item)
     {
         if ($item->quality < 50) {
@@ -78,6 +104,10 @@ class GildedRoseKata
         }
     }
 
+    /**
+     * @param Item $item
+     * @return void
+     */
     public function decrementQuality(Item $item)
     {
         if ($item->quality > 0) {
@@ -85,34 +115,62 @@ class GildedRoseKata
         }
     }
 
+    /**
+     * @param Item $item
+     * @return void
+     */
     public function updateSellIn(Item $item)
     {
         $item->sell_in--;
     }
 
+    /**
+     * @param Item $item
+     * @return void
+     */
     public function sulfurasUpdateExpired(Item $item)
     {
     }
 
+    /**
+     * @param Item $item
+     * @return void
+     */
     public function sulfurasUpdateQuality(Item $item)
     {
     }
 
+    /**
+     * @param Item $item
+     * @return void
+     */
     public function agedBrieUpdateExpired(Item $item)
     {
         $this->incrementQuality($item);
     }
 
+    /**
+     * @param Item $item
+     * @return void
+     */
     public function agedBrieUpdateQuality(Item $item)
     {
         $this->incrementQuality($item);
     }
 
+    /**
+     * @param Item $item
+     * @return void
+     */
     public function backstagePassesUpdateExpired(Item $item)
     {
         $item->quality = 0;
     }
 
+    /**
+     * @param Item $item
+     * @return void
+     */
     public function backstagePassesUpdateQuality(Item $item)
     {
         $this->incrementQuality($item);
@@ -124,11 +182,19 @@ class GildedRoseKata
         }
     }
 
+    /**
+     * @param Item $item
+     * @return void
+     */
     public function conjuredUpdateExpired(Item $item)
     {
         $this->decrementQuality($item);
     }
 
+    /**
+     * @param Item $item
+     * @return void
+     */
     public function conjuredUpdateQuality(Item $item)
     {
         $this->decrementQuality($item);
