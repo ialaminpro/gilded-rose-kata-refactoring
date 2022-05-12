@@ -47,39 +47,27 @@ class GildedRoseKata
     public function updateItemQuality($item)
     {
         if ($item->name == self::$SULFURAS) {
-
-            $this->sulfurasUpdateQuality($item);
-            $this->updateSellIn($item);
-            if ($item->sell_in < 0) {
-                $this->sulfurasUpdateExpired($item);
-            }
-
+            $this->updateItem($item, 'sulfurasUpdateQuality', 'sulfurasUpdateExpired');
         } elseif ($item->name == self::$AGED_BRIE) {
-            $this->agedBrieUpdateQuality($item);
-            $this->updateSellIn($item);
-            if ($item->sell_in < 0) {
-                $this->agedBrieUpdateExpired($item);
-            }
+
+            $this->updateItem($item, 'agedBrieUpdateQuality', 'agedBrieUpdateExpired');
 
         } elseif ($item->name == self::$BACKSTAGE_PASSES) {
-            $this->backstagePassesUpdateQuality($item);
-            $this->updateSellIn($item);
-            if ($item->sell_in < 0) {
-                $this->backstagePassesUpdateExpired($item);
-            }
+            $this->updateItem($item, 'backstagePassesUpdateQuality', 'backstagePassesUpdateExpired');
 
         } elseif (substr($item->name, 0, 8) == self::$CONJURED) {
-            $this->conjuredUpdateQuality($item);
-            $this->updateSellIn($item);
-            if ($item->sell_in < 0) {
-                $this->conjuredUpdateExpired($item);
-            }
+            $this->updateItem($item, 'conjuredUpdateQuality', 'conjuredUpdateExpired');
         } else {
-            $this->decrementQuality($item);
-            $this->updateSellIn($item);
-            if ($item->sell_in < 0) {
-                $this->decrementQuality($item);
-            }
+            $this->updateItem($item, 'decrementQuality', 'decrementQuality');
+        }
+    }
+
+    public function updateItem(Item $item, $updateQuality, $updateExpired)
+    {
+        $this->$updateQuality($item);
+        $this->updateSellIn($item);
+        if ($item->sell_in < 0) {
+            $this->$updateExpired($item);
         }
     }
 
