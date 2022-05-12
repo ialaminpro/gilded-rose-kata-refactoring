@@ -51,15 +51,13 @@ class GildedRoseKata
                 $this->decrementQuality($item);
             }
         } else {
-            if ($item->quality < 50) {
-                $item->quality++;
-                if ($item->name == self::$BACKSTAGE_PASSES) {
-                    if ($item->sell_in < 11) {
-                        $this->incrementQuality($item);
-                    }
-                    if ($item->sell_in < 6) {
-                        $this->incrementQuality($item);
-                    }
+            $this->incrementQuality($item);
+            if ($item->name == self::$BACKSTAGE_PASSES) {
+                if ($item->sell_in < 11) {
+                    $this->incrementQuality($item);
+                }
+                if ($item->sell_in < 6) {
+                    $this->incrementQuality($item);
                 }
             }
         }
@@ -70,12 +68,8 @@ class GildedRoseKata
 
         if ($item->sell_in < 0) {
             if ($item->name != self::$AGED_BRIE) {
-                if ($item->name != self::$BACKSTAGE_PASSES) {
-
-                    if ($item->name != self::$SULFURAS) {
-                        $this->decrementQuality($item);
-                    }
-
+                if ($item->name != self::$BACKSTAGE_PASSES && $item->name != self::$SULFURAS) {
+                    $this->decrementQuality($item);
                 } else {
                     $item->quality = 0;
                 }
